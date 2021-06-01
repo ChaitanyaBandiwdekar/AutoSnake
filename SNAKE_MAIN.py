@@ -140,8 +140,14 @@ def longRouting(vertex, goal, mainGraph):
     while temp!=vertex:
         #print(temp, end=' ')
         final.append(temp)
-        temp = came_from[temp]
-
+        try:
+            temp = came_from[temp]
+        
+        except:
+            time.sleep(20)
+            pygame.quit()
+            quit()
+        
     count+=1
     #print(final, '\n\n\n')
     return final[::-1]
@@ -153,6 +159,7 @@ pygame.init()
 black = (0, 0, 0)
 red = (213, 50, 80)
 green = (0, 255, 0)
+orange = (255,69,0)
  
 dis_width = 400
 dis_height = 200
@@ -173,7 +180,10 @@ snake_speed = 50
 #         pygame.draw.rect(dis, (0,0,0), (x-i,y-i,155,155), 1)
 
 def our_snake(snake_block, snake_list):
-    for x in snake_list:
+    pygame.draw.rect(dis, orange, [snake_list[-1][0], snake_list[-1][1], snake_block, snake_block])
+    pygame.draw.rect(dis, (255,255,255), (snake_list[-1][0]-1,snake_list[-1][1]-1,snake_block,snake_block), 1)
+
+    for x in snake_list[:-1:]:
         pygame.draw.rect(dis, green, [x[0], x[1], snake_block, snake_block])
         pygame.draw.rect(dis, (255,255,255), (x[0]-1,x[1]-1,snake_block,snake_block), 1)
 
